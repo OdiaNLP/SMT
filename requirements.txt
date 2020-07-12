@@ -1,0 +1,5 @@
+tqdm==4.36.1
+WTForms==2.2.1
+dill==0.3.0
+nltk==3.4.5
+Flask==1.1.1
