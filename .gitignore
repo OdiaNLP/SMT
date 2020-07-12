@@ -1,3 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 /responses/logs.txt
 /models/model.pkl
+/models/model_cased.pkl
+/models/model_uncased.pkl
