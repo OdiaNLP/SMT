@@ -10,6 +10,9 @@ cd SMT
 # install required packages preferably in a virtual environment
 pip install -r requirements.txt
 
+# install the `punkt` resource of nltk using the following command
+python -m nltk.downloader punkt
+
 # train SMT model
 cd src
 python train.py  # it creates "model.pkl" in "models" dir
