@@ -19,8 +19,13 @@ from smt_utils import (
 app = Flask(__name__)
 
 
-@app.route('/translate', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
+    return "It's working! :) "
+
+
+@app.route('/translate', methods=['GET', 'POST'])
+def translate():
     form = InputForm(request.form)
 
     if request.method == 'POST' and form.validate():

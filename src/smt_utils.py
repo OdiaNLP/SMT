@@ -1,32 +1,23 @@
 import nltk
 from nltk.translate import AlignedSent
-from nltk.translate.ibm2 import (
-    IBMModel2,
-    Model2Counts
-)
+from nltk.translate.ibm2 import IBMModel2, Model2Counts
 from tqdm import tqdm
 
 
 class IBMModel2WithProgressbar(IBMModel2):
-    def __init__(
-            self,
-            sentence_aligned_corpus,
-            iterations,
-            probability_tables=None
-    ):
+    def __init__(self, sentence_aligned_corpus, iterations, probability_tables=None):
         """
         IBM Model 2 with progress bar for training
         """
         super(IBMModel2WithProgressbar, self).__init__(
-            sentence_aligned_corpus,
-            iterations, probability_tables
+            sentence_aligned_corpus, iterations, probability_tables
         )
 
     def train(self, parallel_corpus):
         counts = Model2Counts()
-        for aligned_sentence in tqdm(parallel_corpus, unit=' samples'):
+        for aligned_sentence in tqdm(parallel_corpus, unit=" samples"):
             src_sentence = [None] + aligned_sentence.mots
-            trg_sentence = ['UNUSED'] + aligned_sentence.words  # 1-indexed
+            trg_sentence = ["UNUSED"] + aligned_sentence.words  # 1-indexed
             l = len(aligned_sentence.mots)
             m = len(aligned_sentence.words)
 
@@ -49,7 +40,7 @@ class IBMModel2WithProgressbar(IBMModel2):
         self.maximize_alignment_probabilities(counts)
 
 
-def train_ibmmodel2(src_text, trg_text, iterations=5):
+def train_ibmmodel2(src_text, trg_text, iterations=1):
     """
     train IBM model 2
     :param src_text: (list) src text
@@ -73,11 +64,7 @@ def translate(ibm_model, src_tokens):
         probs = ibm_model.translation_table[tok]
         if len(probs) == 0:
             continue
-        sorted_words = sorted(
-            [(k, v) for k, v in probs.items()],
-            key=lambda x: x[1],
-            reverse=True
-        )
+        sorted_words = sorted([(k, v) for k, v in probs.items()], key=lambda x: x[1], reverse=True)
         top_token = sorted_words[1][0]
         if top_token is not None:
             translation_tokens.append(top_token)
@@ -94,4 +81,4 @@ def tokenize_od(sent):
 
 
 def detokenize_od(toks):
-    return ' '.join(toks)
+    return " ".join(toks)
